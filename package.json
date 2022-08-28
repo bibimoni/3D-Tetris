@@ -1,0 +1,16 @@
+{
+  "name": "tetris-3d",
+  "version": "1.0.0",
+  "description": "a 3d tetris game",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "three": "^0.143.0",
+    "three.meshline": "^1.4.0",
+    "threejs-meshline": "^2.0.12"
+  }
+}
