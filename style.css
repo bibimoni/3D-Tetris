@@ -1,20 +1,84 @@
 * {
     font-family: sans-serif;
-    padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
 body {
     overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
-#info {
-    position:absolute;
-    top: 10px;
-    width: 100%;
+#menu {
+    position: absolute;
+    width: 200px;
+    height: 250px;
+    top: 50%; left: 50%;
+    margin: -125px 0 0 -100px;
     text-align: center;
-    z-index: 100;
-    display: block;
-    color: white;
+    border: 3px solid #fff;
+    border-radius: 15px;
+    background-color: #E36B23;
+    box-shadow: 2px 10px 5px #888;
+}
+
+#menu p {
+    font-weight: bold;
+    color: #fff
+}
+
+#menu p a {
+    color: #fff;
+}
+
+#menu button {
+    width: 80px;
+    height: 25px;
+    background-color: #C44032;
+    
+    border: 3px solid #fff;
+    border-radius: 5px;
+    
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff
+}
+
+#menu button:hover {
+    cursor: pointer;
+    background-color: #3b120d;
+}
+
+#points {
+    position: absolute;
+    width: 120px;
+    height: 40px;
+    padding: 10px;
+    top: 20px;
+    right: 80px;
+    border: 3px solid #fff;
+    border-radius: 15px;
+    background-color: #E36B23;
+    box-shadow: 2px 10px 5px #888;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    display: none;   
+}
+
+.modal {
+    display: block; /*hidden by default*/
+    position: fixed; /*stay in place*/
+    z-index: 100; /*on top*/
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    /*full width and height*/
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color:rgb(54, 9, 59);
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }

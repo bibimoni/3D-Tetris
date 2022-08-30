@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "stats.js": "^0.17.0",
     "three": "^0.143.0",
     "three.meshline": "^1.4.0",
     "threejs-meshline": "^2.0.12"

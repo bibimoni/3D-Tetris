@@ -13,7 +13,7 @@ const camera = new THREE.PerspectiveCamera(
         FAR //far plane from the view point
 );
 
-camera.position.set(0, 400, 100);
+camera.position.set(0, 0, 400);
 camera.up.set(0, 0, 1);
 camera.lookAt(0, 0, 0);
 

@@ -1,26 +1,42 @@
 import * as THREE from "../node_modules/three/build/three.module.js";
+import { move } from "./block.js";
 import camera from './camera.js';
-import scene from './scene.js';
 import renderer from './renderer.js'
 
 //a variables to check where is the camera relative to that axis
-let cameraView = {
+export let cameraView = {
     positiveX : false,
     negativeX : false,
-    positiveY : true,
+    positiveY : false,
     negativeY : false,
-    positiveZ : false,
+    positiveZ : true,
     negativeZ : false,
+}
+
+let keys = {
+    ArrowUp : {
+        pressed : false
+    },
+    ArrowDown : {
+        pressed : false
+    },
+    ArrowLeft: {
+        pressed: false
+    },
+    ArrowRight: {
+        presse: false
+    }    
 }
 
 const distance_from_origin = 400;
 
 export default function eventHandler() {
-    window.addEventListener('keydown', handleKeyEvent);
+    window.addEventListener('keydown', handleKeyCameraEvent);
+    window.addEventListener('keydown', handleKeyMovementEvent)
 }
 
 //view from different angle 
-function handleKeyEvent(event) {
+function handleKeyCameraEvent(event) {
     switch(event.key) {
         case '1' : {
             camera.position.set(0, distance_from_origin, distance_from_origin * 0.3);
@@ -57,6 +73,37 @@ function handleKeyEvent(event) {
     camera.lookAt(0, 0, 0);
 }
 
+function handleKeyMovementEvent(event) {
+    if(cameraView.positiveZ) {
+        switch(event.key) {
+            case 'ArrowUp' : keys.ArrowUp = true; break;   
+            case 'ArrowDown' : keys.ArrowDown = true; break;   
+            case 'ArrowLeft' : keys.ArrowLeft = true; break;   
+            case 'ArrowRight' : keys.ArrowRight = true; break;   
+        }   
+    }
+}
+
+//move the block using the keys object
+export function moveBlock() {
+    if(keys.ArrowUp) {
+        move(-1, 0, 0);
+        keys.ArrowUp = false;
+    }
+    if(keys.ArrowDown) {
+        move(1, 0, 0);
+        keys.ArrowDown = false;
+    }
+    if(keys.ArrowLeft) {
+        move(0, -1, 0);
+        keys.ArrowLeft = false;
+    }
+    if(keys.ArrowRight) {
+        move(0, 1, 0);
+        keys.ArrowRight = false;
+    }
+}
+
 //resize the canvas
 export function updateOnResize() {
     window.addEventListener('resize', resizing);
@@ -78,4 +125,15 @@ function changeCameraPosition(cameraPosition) {
         }
     }
     cameraView[cameraPosition] = true;
+}
+/**
+ * returns the current camera view (has a value of true) in cameraView
+ */
+function getCurrentCameraPosition() {
+    for(const position in cameraView) {
+        if(cameraView[position]) {
+            return position;
+        }
+    }
+    return () => console.err('invalid camera position');    
 }

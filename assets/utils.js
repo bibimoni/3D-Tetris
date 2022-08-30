@@ -1,5 +1,6 @@
 import * as THREE from "../node_modules/three/build/three.module.js";
 
+
 /** create a 1:1:1 block
  * specify the location of the block relative to the other block coords 
  * @param {string} relativeDirection {left, right, up, down, under, above} 
@@ -55,4 +56,12 @@ export function createIndividualBlock(
     }  
     return block;
 }
+
+export function addPoints(ammount) {
+    const points = document.getElementById('points');
+    points.innerHTML = parseInt(points.innerHTML, 10) + 1;
+}
+
+
+
 
