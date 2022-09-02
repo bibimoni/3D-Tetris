@@ -6,7 +6,7 @@ import { createMultiMaterialObject } from "../node_modules/three/examples/jsm/ut
 
 //if the block touches the floor or another block, it will transform
 //into static, separated cubes that won't move anymore
-let staticBlocks = [];
+export let staticBlocks = [];
 
 export function addStaticBlock(x, y, z) {
     //create array of static blocks if needed only
@@ -18,8 +18,8 @@ export function addStaticBlock(x, y, z) {
         new THREE.BoxGeometry(
             blockSize, blockSize, blockSize
         ), [
-            new THREE.MeshBasicMaterial({
-                color: 0x000000, shading: THREE.FlatShading, wireframe: true, transparent: true
+            new THREE.MeshLambertMaterial({
+                color: 0x000000, wireframe: true
             }),
             //change color from bottom to top using z coords as index of the colors array
             new THREE.MeshLambertMaterial({ color: zColors[z]})

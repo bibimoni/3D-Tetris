@@ -1,4 +1,5 @@
 import * as THREE from "../node_modules/three/build/three.module.js";
+import { splitZ } from "./constant.js";
 
 const aspectRatio = window.innerWidth / window.innerHeight;
 
@@ -13,7 +14,7 @@ const camera = new THREE.PerspectiveCamera(
         FAR //far plane from the view point
 );
 
-camera.position.set(0, 0, 400);
+camera.position.set(0, 0, splitZ * 10 * (8/5));
 camera.up.set(0, 0, 1);
 camera.lookAt(0, 0, 0);
 

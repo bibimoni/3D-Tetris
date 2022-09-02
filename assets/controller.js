@@ -1,7 +1,13 @@
-import * as THREE from "../node_modules/three/build/three.module.js";
-import { move } from "./block.js";
+import { move, rotate } from "./block.js";
 import camera from './camera.js';
 import renderer from './renderer.js'
+
+//the state of the rotation, reset upon spawning a new block
+let rotationIndex = 0;
+
+export function resetRotationIndex() {
+    rotationIndex = 0;
+}
 
 //a variables to check where is the camera relative to that axis
 export let cameraView = {
@@ -14,25 +20,19 @@ export let cameraView = {
 }
 
 let keys = {
-    ArrowUp : {
-        pressed : false
-    },
-    ArrowDown : {
-        pressed : false
-    },
-    ArrowLeft: {
-        pressed: false
-    },
-    ArrowRight: {
-        presse: false
-    }    
+    ArrowUp : false,
+    ArrowDown : false,
+    ArrowLeft: false,
+    ArrowRight: false,
+    Space : false,
 }
 
-const distance_from_origin = 400;
+const distance_from_origin = 300;
 
 export default function eventHandler() {
-    window.addEventListener('keydown', handleKeyCameraEvent);
     window.addEventListener('keydown', handleKeyMovementEvent)
+    window.addEventListener('keydown', handleRotationMovementEvent)
+    window.addEventListener('keydown', handleKeyCameraEvent); 
 }
 
 //view from different angle 
@@ -69,18 +69,37 @@ function handleKeyCameraEvent(event) {
             break;
         }
     }
-    console.dir(JSON.stringify(cameraView));
     camera.lookAt(0, 0, 0);
 }
 
 function handleKeyMovementEvent(event) {
-    if(cameraView.positiveZ) {
+    if(event.keyCode === 32) {
+        keys.Space = true;
+    }
+    if(cameraView.positiveZ) {     
         switch(event.key) {
             case 'ArrowUp' : keys.ArrowUp = true; break;   
             case 'ArrowDown' : keys.ArrowDown = true; break;   
             case 'ArrowLeft' : keys.ArrowLeft = true; break;   
-            case 'ArrowRight' : keys.ArrowRight = true; break;   
-        }   
+            case 'ArrowRight' : keys.ArrowRight  = true; break;   
+        }    
+    }
+}
+
+function handleRotationMovementEvent(event) {
+    //rotate defending on the state 
+    if(event.key === 'Control') {
+        console.log('called');
+        switch(rotationIndex) {
+            case 0 : rotate(90, 0, 0); break;
+            case 1 : rotate(-90, 0, 0); break;
+            case 2 : rotate(0, 90, 0); break;
+            case 3 : rotate(0, -90, 0); break;
+            case 4 : rotate(0, 0, 90); break;
+            case 5 : rotate(0, 0, -90); break;
+        }
+        //if reached the end of the state go back to the first state
+        rotationIndex === 5 ? rotationIndex = 0 : rotationIndex++; 
     }
 }
 
@@ -101,6 +120,10 @@ export function moveBlock() {
     if(keys.ArrowRight) {
         move(0, 1, 0);
         keys.ArrowRight = false;
+    }
+    if(keys.Space) {
+        move(0, 0, -1);
+        keys.Space = false;
     }
 }
 
